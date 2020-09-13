@@ -41,7 +41,7 @@ public class DbUtil {
 		int rows = 0;
 		
 		try {
-			PreparedStatement pst = con.prepareStatement("INSERT INTO User VALUES(?,?,?,?,?)");
+			PreparedStatement pst = con.prepareStatement("INSERT INTO user VALUES(?,?,?,?,?)");
 			
 			pst.setString(1,name);
 			pst.setString(2,  password);
@@ -63,7 +63,7 @@ public class DbUtil {
 		int rows = 0;
 		
 		try {
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM User WHERE name = ? AND password = ?");
+			PreparedStatement pst = con.prepareStatement("SELECT * FROM user WHERE name = ? AND password = ?");
 			
 			pst.setString(1,name);
 			pst.setString(2,  password);
