@@ -4,6 +4,22 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+    <param-name>dbUser</param-name>
+    <param-value>admin</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dbPassword</param-name>
+    <param-value>welcome123</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dbURL</param-name>
+    <param-value>jdbc:mysql://database-1.cqsb5fmzx3vh.ap-south-1.rds.amazonaws.com:3306/</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dbName</param-name>
+    <param-value>tempdb</param-value>
+  </context-param>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<display-name>LoginServlet</display-name>
