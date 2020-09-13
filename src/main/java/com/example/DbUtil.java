@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class DbUtil {
 	static Connection con=null;
 	static String driver = "com.mysql.cj.jdbc.Driver";
-	static String url = "jdbc:mysql://localhost:3306/tempdb";
-	static String username = "root";
-	static String password = "admin";
+	static String url = "jdbc:mysql://database-1.cqsb5fmzx3vh.ap-south-1.rds.amazonaws.com:3306/tempdb";
+	static String username = "admin";
+	static String password = "welcome123";
 	
 	static {
 		try {
