@@ -14,11 +14,11 @@
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
-    <param-value>jdbc:mysql://flipkart.cqsb5fmzx3vh.ap-south-1.rds.amazonaws.com:3306/</param-value>
+    <param-value>jdbc:mysql://learnwithprojects-com.cqsb5fmzx3vh.ap-south-1.rds.amazonaws.com:3306/</param-value>
   </context-param>
   <context-param>
     <param-name>dbName</param-name>
-    <param-value>flipkart</param-value>
+    <param-value>learnwithprojectsCom</param-value>
   </context-param>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
