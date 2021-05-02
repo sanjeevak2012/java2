@@ -6,19 +6,19 @@
   <display-name>Archetype Created Web Application</display-name>
   <context-param>
     <param-name>dbUser</param-name>
-    <param-value>admin</param-value>
+    <param-value>master</param-value>
   </context-param>
   <context-param>
     <param-name>dbPassword</param-name>
-    <param-value>welcome1</param-value>
+    <param-value>Welcome123</param-value>
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
-    <param-value>jdbc:mysql://learnwithproject-com.cqsb5fmzx3vh.ap-south-1.rds.amazonaws.com:3306/</param-value>
+    <param-value>jdbc:mysql://testdb.cfrurxflalzb.ca-central-1.rds.amazonaws.com:3306</param-value>
   </context-param>
   <context-param>
     <param-name>dbName</param-name>
-    <param-value>flipkart</param-value>
+    <param-value>testdb</param-value>
   </context-param>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
