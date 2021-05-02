@@ -14,7 +14,7 @@
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
-    <param-value>jdbc:mysql://testdb.cfrurxflalzb.ca-central-1.rds.amazonaws.com:3306</param-value>
+    <param-value>jdbc:mysql://testdb.cfrurxflalzb.ca-central-1.rds.amazonaws.com:3306/</param-value>
   </context-param>
   <context-param>
     <param-name>dbName</param-name>
