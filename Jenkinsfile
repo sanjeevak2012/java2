@@ -1,31 +1,26 @@
 pipeline {
-  
-  agent any
-    
-  parameters {
+    agent any
+    parameters {
             choice choices: ['develop', 'release', 'master'], description: 'Please provide the branch name so that we can deploy', name: 'branch'
-     }
-    
-  triggers {
+               }
+
+    triggers {
         pollSCM 'H/2 * * * * '
             }
-   
-  tools {
-            maven 'maven-3.8.1'
+    tools {
+            maven 'maven'
     }
-    
-  environment { 
+    environment { 
         project_type = 'java'
         DEPLOY_TO = 'production'
     }
-    
-  stages {
-        
-    stage('git fetch') {
+    stages {
+        stage('git fetch') {
             steps {
                 git branch: "${params.branch}", credentialsId: '4991f864-6845-456a-90df-f0f62edcdc79', url: 'https://github.com/mailrahulsre/java-db-Login.git'
             }
-        }   
+        }
+         
         stage('Build the code') {
         when{
              environment name: 'project_type', value: 'java'
@@ -33,7 +28,7 @@ pipeline {
             steps {
                 sh 'mvn -Dmaven.test.failure.ignore=true clean package'
                 echo "deploying to ${DEPLOY_TO} Env " 
-                deploy adapters: [tomcat8(credentialsId: 'tavisca-tomcat-credentials', path: '', url: 'http://172.31.42.95:8080')], contextPath: 'login-release-branch', onFailure: false, war: '**/*.war'
+                deploy adapters: [tomcat8(credentialsId: 'tomcat-cred', path: '', url: 'http://172.31.32.223:8080')], contextPath: 'login-release-branch', onFailure: false, war: '**/*.war'
             }
         }
  
@@ -43,8 +38,15 @@ pipeline {
              echo "You can always see me"
          }
          success {
+
+ 
+
               echo "I am running because the job ran successfully"
-              //sh '/usr/local/bin/aws s3 cp /jenkins-home/workspace/stage-tavisca/target/LoginRegisterApp.war s3://9am-weekend-jul/$JOB_NAME/${BUILD_NUMBER}/' 
+              //sh '/usr/local/bin/aws s3 cp /jenkins-home/workspace/stage-tavisca/target/LoginRegisterApp.war s3://9am-weekend-jul/$JOB_NAME/${BUILD_NUMBER}/'
+              
+
+ 
+
          }
          unstable {
               echo "Gear up ! The build is unstable. Try fix it"
@@ -53,4 +55,5 @@ pipeline {
              echo "OMG ! The build failed"
          }
      }
+ 
 }
