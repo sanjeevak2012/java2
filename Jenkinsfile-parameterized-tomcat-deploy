@@ -4,16 +4,21 @@ pipeline {
             choice choices: ['develop', 'release', 'master'], description: 'Please provide the branch name so that we can deploy', name: 'branch'
                }
 
+// not required in case of parameterized
+
     triggers {
         pollSCM 'H/2 * * * * '
             }
+            
     tools {
             maven 'maven'
     }
+    
     environment { 
         project_type = 'java'
         DEPLOY_TO = 'production'
     }
+    
     stages {
         stage('git fetch') {
             steps {
