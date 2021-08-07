@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {
+        maven 'MAVEN_PATH' 
+    }
+
+    stages {
+        stage('Fetch') {
+            steps {
+                echo 'fetch the code'
+                git credentialsId: 'github-cred', url: 'https://github.com/mailrahulsre/java-db-Login.git'
+            }
+        }
+            
+             stage('Build') {
+            steps {
+                echo 'Maven Build'
+                sh 'mvn clean package' }
+            
+        }
+        
+         stage('post build') {
+            steps {
+                echo 'Post build'
+                deploy adapters: [tomcat8(credentialsId: 'tomcat-cred', path: '', url: 'http://172.31.37.61:8080')], contextPath: 'homeloan', onFailure: false, war: '**/*.war'
+            }
+        }
+        }
+    }
