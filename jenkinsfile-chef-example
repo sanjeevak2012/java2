@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "MAVEN_PATH"
+    }
+
+    stages {
+        stage('fetch the code') {
+            steps {
+                git credentialsId: 'github-cred', url: 'https://github.com/mailrahulsre/java-db-Login.git'
+            }
+        }
+        stage('Build the code') {
+            steps {
+                //tool name: 'maven', type: 'maven'
+                sh 'mvn clean package'
+            }
+        }
+		}    
+    post {
+         success {
+              s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'artifactory-9am-weekday-jul', excludedFile: 'target', flatten: true, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'ap-south-1', showDirectlyInBrowser: false, sourceFile: '**/*.war', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 's3profile', userMetadata: []
+         }
+         unstable {
+              echo "Gear up ! The build is unstable. Try fix it"
+         }
+         failure {
+             echo "OMG ! The build failed"
+         }
+     }
+
+}
