@@ -74,7 +74,7 @@
       docker_image:
         state: absent
         force: yes
-        name: 127.0.0.1:5000/trainingwaleapp
+        name: 127.0.0.1:5000/lwplabsLogin
         tag: latest
       register: out4
       tags: docker-image-deletion
