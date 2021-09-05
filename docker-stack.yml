@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  tomcat:
+    image: 127.0.0.1:5000/lwplabsLogin
+    #build: .
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+    ports:
+      - "8080:8080"
+

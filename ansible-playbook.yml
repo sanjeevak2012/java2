@@ -1,0 +1,121 @@
+---
+- name: Play1 for copying files
+  hosts: docker-master
+  become: yes
+  tasks:
+    - name: Create a directory if it does not exist
+      file:
+        path: /tmp/lwplabs-com
+        state: directory
+        mode: '0755'
+        owner: ansadmin
+        group: root
+      tags:
+         - create-dir
+
+    - name: Copy the war file, dockerfile & lwplabs-com.yml to docker master server
+      copy:
+        src: /etc/ansible/lwplabs-com/
+        dest: /tmp/lwplabs-com
+        owner: ansadmin
+        group: root
+        mode: '0777'
+      tags:
+        - copy_code
+
+- name: "Play 2- python installation"
+  hosts: docker-master
+  become: yes
+  tasks:
+    - name: Install Python 3.6
+      yum:
+        name: python36
+        state: present
+      register: out1
+      tags:
+        - python-install
+    - debug:
+        var: out1
+
+    - name: alternatives
+      alternatives:
+        name: python
+        link: /usr/bin/python3.6
+        path: /usr/bin/python3
+      register: out2
+      tags:
+        - python-alternatives
+    - debug:
+        var: out2
+
+- name: "Play 3 Install Python packages and docker image push"
+  hosts: docker-master
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Install boto3 and botocore with pip3 module
+      pip:
+       name:
+        - boto
+        - boto3
+        - botocore
+        - docker
+          #- docker-py
+        - jsondiff
+        - pyyaml
+       executable: pip3.6
+      register: out3
+      tags: docker-lib-install
+    - debug:
+        var: out3
+
+    - name: "Delete the docker image"
+      docker_image:
+        state: absent
+        force: yes
+        name: 127.0.0.1:5000/trainingwaleapp
+        tag: latest
+      register: out4
+      tags: docker-image-deletion
+    - debug:
+        var: out4
+
+    - name: "Build an image and push it to a private repo"
+      docker_image:
+        build:
+          path: /tmp/lwplabs-com
+        name: 127.0.0.1:5000/lwplabsLogin
+        tag: latest
+        push: yes
+        nocache: yes
+        force: yes
+      register: out5
+      tags: docker-image-build
+    - debug:
+        var: out5
+
+- name: "Play 3 docker stack deploy"
+  hosts: docker-master
+  become: yes
+  tasks:
+    - name: Remove stack
+      docker_stack:
+        name: lwplabs
+        state: absent
+      tags: docker-stack-remove
+
+    - name: sleep for 10 sec
+      shell: sleep 10
+
+    - name: Deploy stack from a compose file
+      docker_stack:
+        state: present
+        name: lwplabs
+        compose:
+          - /tmp/lwplabs-com/docker-stack.yml
+      register: out6
+      tags: docker-stack-deploy
+    - debug:
+        var: out6
+
