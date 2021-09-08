@@ -74,7 +74,7 @@
       docker_image:
         state: absent
         force: yes
-        name: 127.0.0.1:5000/lwplabsLogin
+        name: 127.0.0.1:5000/lwplabslogin
         tag: latest
       register: out4
       tags: docker-image-deletion
@@ -85,7 +85,7 @@
       docker_image:
         build:
           path: /tmp/lwplabs-com
-        name: 127.0.0.1:5000/lwplabsLogin
+        name: 127.0.0.1:5000/lwplabslogin
         tag: latest
         push: yes
         nocache: yes
