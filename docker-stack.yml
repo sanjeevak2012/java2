@@ -10,13 +10,15 @@ services:
         max_replicas_per_node: 1
       restart_policy:
         condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       resources:
         limits:
           cpus: '0.50'
-          memory: 50M
+          memory: 200M
         reservations:
           cpus: '0.25'
-          memory: 20M
+          memory: 100M
     ports:
       - "8080:8080"
-
