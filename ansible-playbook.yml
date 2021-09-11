@@ -101,7 +101,7 @@
   tasks:
     - name: Remove stack
       docker_stack:
-        name: {{ job_name }}
+        name: "{{ job_name }}"
         state: absent
       tags: docker-stack-remove
 
@@ -111,7 +111,7 @@
     - name: Deploy stack from a compose file
       docker_stack:
         state: present
-        name: {{ job_name }}
+        name: "{{ job_name }}"
         compose:
           - /tmp/{{ job_name }}/docker-stack.yml
       register: out6
