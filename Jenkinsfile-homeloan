@@ -1,29 +1,36 @@
 pipeline {
     agent any
-    tools {
-        maven 'maven3.8.1' 
-    }
 
-    stages {
-        stage('Fetch') {
-            steps {
-                echo 'fetch the code'
-                git credentialsId: 'github-cred', url: 'https://github.com/mailrahulsre/java-db-Login.git'
-            }
-        }
-            
-             stage('Build maven job') {
-            steps {
-                echo 'Maven Build'
-                sh 'mvn clean package' }
-            
-        }
-        
-         stage('post build') {
-            steps {
-                echo 'Post build'
-                deploy adapters: [tomcat8(credentialsId: 'tomcat-cred', path: '', url: 'http://172.31.37.61:8080')], contextPath: 'homeloan', onFailure: false, war: '**/*.war'
-            }
-        }
-        }
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven3.8.1"
     }
+	
+stages {
+  stage('fetch the code') {
+    steps {
+      // One or more steps need to be included within the steps block.
+	  git credentialsId: 'github-cred', url: 'https://github.com/mailrahulsre/java-db-Login.git'
+    }
+  }
+
+  stage('Build the code') {
+    steps {
+      // One or more steps need to be included within the steps block.
+	  echo "build"
+	  sh 'mvn clean package'
+    }
+  }
+
+  stage('Post Build') {
+    steps {
+      // One or more steps need to be included within the steps block.
+	  echo "post-build"
+	  deploy adapters: [tomcat7(credentialsId: 'admin-tomcat-lwplabs', path: '', url: 'http://ip-172-31-1-167.ap-south-1.compute.internal:8080/')], contextPath: 'login', onFailure: false, war: '**/*.war'
+    }
+  }
+
+}
+
+ 
+}
