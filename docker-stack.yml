@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   tomcat:
-    image: 127.0.0.1:5000/lwplabslogin
+    image: 127.0.0.1:5000/lwplabslogin:latest
     #build: .
     deploy:
       replicas: 2
