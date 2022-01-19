@@ -22,7 +22,7 @@ pipeline {
         stage('deploy the code') {
             steps {
                 deploy adapters: [tomcat8(credentialsId: 'admin-tomcat-dev-lwplabs', 
-                path: '', url: 'http://172.31.91.71:8080')], contextPath: 'login', onFailure: false, war: '**/*.war'
+                path: '', url: 'http://172.31.91.71:8080')], contextPath: 'login-lwplabs', onFailure: false, war: '**/*.war'
             }
         }
     }
