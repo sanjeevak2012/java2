@@ -1,6 +1,6 @@
 ---
 - name: Play1 for copying files
-  hosts: docker-master
+  hosts: dockerMaster
   become: yes
   tasks:
     - name: Create a directory if it does not exist
@@ -24,7 +24,7 @@
         - copy_code
 
 - name: "Play 2- python installation"
-  hosts: docker-master
+  hosts: dockerMaster
   become: yes
   tasks:
     - name: Install Python 3.6
@@ -49,7 +49,7 @@
         var: out2
 
 - name: "Play 3 Install Python packages and docker image push"
-  hosts: docker-master
+  hosts: dockerMaster
   become: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
@@ -96,7 +96,7 @@
         var: out5
 
 - name: "Play 3 docker stack deploy"
-  hosts: docker-master
+  hosts: dockerMaster
   become: yes
   tasks:
     - name: Remove stack
@@ -118,3 +118,4 @@
       tags: docker-stack-deploy
     - debug:
         var: out6
+
