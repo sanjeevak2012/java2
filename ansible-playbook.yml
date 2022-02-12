@@ -86,9 +86,7 @@
         build:
           path: /tmp/{{ JOB_NAME }}
         name: 127.0.0.1:5000/lwplabslogin
-        tag: 
-          - "{{ BUILD_NUMBER }}"
-          - latest
+        tag: "latest"
         push: yes
         nocache: yes
         force: yes
