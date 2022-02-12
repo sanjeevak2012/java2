@@ -15,7 +15,7 @@
 
     - name: Copy the war file, dockerfile & lwplabs-com.yml to docker master server
       copy:
-        src: /etc/ansible/{{ JOB_NAME }}/
+        src: {{ WORKSPACE }}
         dest: /tmp/{{ JOB_NAME }}
         owner: ansadmin
         group: root
