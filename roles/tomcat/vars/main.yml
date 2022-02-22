@@ -1,0 +1,3 @@
+---
+# vars file for /etc/ansible/roles/tomcat
+tomcatVersion: 8.5.75

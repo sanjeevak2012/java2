@@ -1,0 +1,10 @@
+- name: "Copy httpd Configuration file"
+  copy:
+    src: files/httpd.original
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+  - reload apache
+
