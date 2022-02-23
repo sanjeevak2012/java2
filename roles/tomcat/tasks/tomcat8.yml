@@ -1,7 +1,7 @@
 
 - name: Unarchive a tomcat tar from tomcat website
   unarchive:
-    src: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v"{{tomcatVersion}}"/bin/apache-tomcat-"{{tomcatVersion}}".tar.gz
+    src: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v{{ tomcatVersion }}/bin/apache-tomcat-{{ tomcatVersion }}.tar.gz
     dest: /etc/
     remote_src: yes
     owner: root
@@ -12,7 +12,7 @@
 
 - name: create a soft link to th tomcat folder
   file:
-    src: /etc/apache-tomcat-"{{tomcatVersion}}"
+    src: /etc/apache-tomcat-{{ tomcatVersion }}
     dest: /etc/tomcat
     owner: root
     group: root
