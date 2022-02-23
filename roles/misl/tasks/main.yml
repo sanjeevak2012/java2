@@ -10,4 +10,5 @@
       - wget
       - bind-utils #nslookup
       - tree
+      - git
     state: latest
