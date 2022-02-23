@@ -3,11 +3,11 @@
   hosts: webservers
   become: yes
   vars:
-    v_role_path: "{{WORKSPACE}}"/roles
+    v_role_path: "{{ WORKSPACE }}"/roles
   roles:
-    - "{{v_role_path}}"/misl
-    - "{{v_role_path}}"/apache
-    - "{{v_role_path}}"/tomcat
+    - "{{ v_role_path }}"/misl
+    - "{{ v_role_path }}"/apache
+    - "{{ v_role_path }}"/tomcat
   
 - name: Play 2 - Custom configuration of Apache
   hosts: webservers
