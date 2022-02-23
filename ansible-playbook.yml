@@ -3,12 +3,12 @@
   hosts: webservers
   become: yes
   vars:
-    v_role_path: "{{ WORKSPACE }}"/roles
+    v_role_path: "{{ WORKSPACE }}/roles"
   roles:
-    - "{{ v_role_path }}"/misl
-    - "{{ v_role_path }}"/apache
-    - "{{ v_role_path }}"/tomcat
-  
+    - "{{ v_role_path }}/misl"
+    - "{{ v_role_path }}/apache"
+    - "{{ v_role_path }}/tomcat"
+
 - name: Play 2 - Custom configuration of Apache
   hosts: webservers
   become: yes
@@ -22,7 +22,7 @@
 
     - name: copy the proxypass file
       copy:
-        src: "{{WORKSPACE}}"/proxypass.conf
+        src: "{{ WORKSPACE }}/proxypass.conf"
         dest: /etc/httpd/conf.d/proxypass.conf
         owner: root
         group: root
@@ -90,4 +90,3 @@
     - name: start tomcat
       command: nohup sh /etc/tomcat/bin/startup.sh
       tags: start-tomcat
-
