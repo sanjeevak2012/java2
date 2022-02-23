@@ -13,6 +13,11 @@
   hosts: webservers
   become: yes
   tasks:
+    - name: ddelete the doc root dir
+      file:
+        path: /var/www/html
+        state: absent
+        
     - name: "code copy"
       git:
         repo: 'https://github.com/mailrahulsre/learnwithprojects.com.git'
