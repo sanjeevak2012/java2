@@ -5,7 +5,7 @@
   tasks:
     - name: Create a directory if it does not exist
       file:
-        path: /tmp/{{ JOB_NAME }}
+        path: /tmp/{{ job_name }}
         state: directory
         mode: '0755'
         owner: ansadmin
@@ -15,8 +15,8 @@
 
     - name: Copy the war file, dockerfile & lwplabs-com.yml to docker master server
       copy:
-        src: "{{ WORKSPACE }}/"
-        dest: /tmp/{{ JOB_NAME }}
+        src: "{{ ANSIBLE_WORKSPACE }}/"
+        dest: /tmp/{{ job_name }}
         owner: ansadmin
         group: root
         mode: '0777'
@@ -84,7 +84,7 @@
     - name: "Build an image and push it to a private repo"
       docker_image:
         build:
-          path: /tmp/{{ JOB_NAME }}
+          path: /tmp/{{ job_name }}
         name: 127.0.0.1:5000/lwplabslogin
         tag: "latest"
         push: yes
@@ -101,7 +101,7 @@
   tasks:
     - name: Remove stack
       docker_stack:
-        name: "{{ JOB_NAME }}"
+        name: "{{ job_name }}"
         state: absent
       tags: docker-stack-remove
 
@@ -111,9 +111,9 @@
     - name: Deploy stack from a compose file
       docker_stack:
         state: present
-        name: "{{ JOB_NAME }}"
+        name: "{{ job_name }}"
         compose:
-          - /tmp/{{ JOB_NAME }}/docker-stack.yml
+          - /tmp/{{ job_name }}/docker-stack.yml
       register: out6
       tags: docker-stack-deploy
     - debug:
