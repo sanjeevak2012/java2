@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+	tools {
+	maven 'maven'
+	}
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'develop', credentialsId: 'ansadmin-key', url: 'https://github.com/mailrahulsre/java-db-Login.git'
+
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    ansiblePlaybook credentialsId: 'ansadmin-key', disableHostKeyChecking: true, extras: '-e job_name=$JOB_NAME -e ANSIBLE_WORKSPACE=$WORKSPACE', forks: 5, installation: 'ansible', inventory: 'dev.ini', playbook: 'ansible-playbook.yml'
+                }
+            }
+        }
+    }
+}
