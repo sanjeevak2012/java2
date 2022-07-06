@@ -79,7 +79,7 @@
 
     - name: copy the war file
       aws_s3:
-        bucket: artifactory-03jul2020
+        bucket: lwplabs
         object: login##1.0.war
         dest: /etc/tomcat/webapps/login##1.0.war
         mode: get
