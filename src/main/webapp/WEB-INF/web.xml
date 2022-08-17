@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
   <context-param>
     <param-name>dbUser</param-name>
-    <param-value>master</param-value>
+    <param-value>admin</param-value>
   </context-param>
   <context-param>
     <param-name>dbPassword</param-name>
@@ -14,7 +14,7 @@
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
-    <param-value>jdbc:mysql://homeloan.ctsskph1rwug.ap-south-1.rds.amazonaws.com:3306/</param-value>
+    <param-value>jdbc:mysql://lwplabs.cdo5uynfnrno.us-east-1.rds.amazonaws.com:3306/</param-value>
   </context-param>
   <context-param>
     <param-name>dbName</param-name>
