@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    
+    tools {
+        maven 'maven'
+    }
+
+
+    stages {
+	
+        stage('Fetch the code') {
+            steps {
+                git branch: 'develop', credentialsId: 'github-repo', url: 'https://github.com/devopscloudsre/java-db-Login.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                
+                sh 'mvn clean package'
+            }
+			
+			post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+					s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'lwplabs', excludedFile: 'target', flatten: true, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*.war', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 's3profile', userMetadata: []
+                }
+            }
+        }
+    }
+}
