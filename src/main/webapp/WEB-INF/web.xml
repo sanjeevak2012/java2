@@ -10,7 +10,7 @@
   </context-param>
   <context-param>
     <param-name>dbPassword</param-name>
-    <param-value>Welcome123</param-value>
+    <param-value>admin123</param-value>
   </context-param>
   <context-param>
     <param-name>dbURL</param-name>
